@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Bergsmansgatans Luftgevärsskytte</title>
@@ -231,6 +231,85 @@
   /* ===== LEADERBOARD ===== */
   #screen-leaderboard { background: var(--bg); }
   #screen-overall { background: var(--bg); }
+
+  /* ===== OVERALL CELEBRATION ===== */
+  .overall-hero {
+    position: relative; min-height: 52vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+  }
+  .overall-hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('algtjur_falt.jpg');
+    background-size: cover; background-position: center 20%;
+    filter: brightness(0.22) sepia(0.6);
+  }
+  .overall-hero-content { position: relative; z-index: 1; padding: 28px 24px; width: 100%; }
+  .overall-crown {
+    font-size: 3.8rem; display: block;
+    animation: crown-bounce 1.1s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 16px rgba(201,168,76,0.9));
+  }
+  @keyframes crown-bounce {
+    from { transform: translateY(0) scale(1); }
+    to   { transform: translateY(-10px) scale(1.12); }
+  }
+  .overall-mastare {
+    font-family: Georgia, serif;
+    font-size: clamp(1.6rem, 7vw, 3rem);
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin: 6px 0 4px;
+    animation: mastare-glow 2s ease-in-out infinite;
+  }
+  @keyframes mastare-glow {
+    0%,100% { text-shadow: 0 0 18px rgba(201,168,76,0.6), 0 0 4px rgba(201,168,76,0.4); }
+    50%      { text-shadow: 0 0 50px rgba(201,168,76,1), 0 0 100px rgba(255,215,0,0.35); }
+  }
+  .overall-winner-name {
+    font-family: Georgia, serif;
+    font-size: clamp(2rem, 9vw, 3.8rem);
+    color: #fff; font-weight: 700; line-height: 1.1;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.9), 0 0 40px rgba(201,168,76,0.3);
+    animation: name-zoom 0.55s cubic-bezier(0.175,0.885,0.32,1.275) both;
+  }
+  @keyframes name-zoom {
+    from { opacity: 0; transform: scale(0.4); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .overall-winner-score {
+    font-size: clamp(3.2rem, 13vw, 5.5rem);
+    font-weight: 900; color: var(--gold); line-height: 1;
+    animation: score-drop 0.5s 0.3s cubic-bezier(0.175,0.885,0.32,1.275) both;
+    text-shadow: 0 0 40px rgba(201,168,76,0.7);
+  }
+  @keyframes score-drop {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .overall-points-label {
+    color: var(--text-sec); font-size: 0.85rem; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-top: 2px;
+  }
+  .overall-winner-sub {
+    color: var(--text-sec); font-size: 0.8rem; margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+  /* Sparkle stars around winner */
+  .overall-stars {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .star {
+    position: absolute; font-size: 1.2rem;
+    animation: star-float linear infinite;
+    opacity: 0;
+  }
+  @keyframes star-float {
+    0%   { opacity: 0; transform: translateY(0) scale(0.5) rotate(0deg); }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-80px) scale(1.2) rotate(360deg); }
+  }
   .lb-header {
     position: relative; overflow: hidden;
     padding: 30px 20px 20px; text-align: center;
@@ -335,6 +414,81 @@
   .player-complete h2 { font-size: 1.8rem; }
   .player-complete .final-score { font-size: 4rem; font-weight: 700; color: var(--gold); line-height: 1; }
   .player-complete .score-breakdown { color: var(--text-sec); font-size: 0.9rem; margin-top: -8px; }
+
+  /* ===== WINNER HERO ===== */
+  .winner-hero {
+    position: relative; overflow: hidden;
+    padding: 22px 18px !important;
+    border: 3px solid var(--gold) !important;
+    background: linear-gradient(135deg, #3a1e00, #6b3d00, #3a1e00) !important;
+    background-size: 300% 300%;
+    animation: winner-bg 3s ease infinite, winner-glow 1.8s ease-in-out infinite;
+    border-radius: 14px !important;
+  }
+  /* Shimmer sweep */
+  .winner-hero::before {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(105deg, transparent 20%, rgba(255,220,80,0.18) 50%, transparent 80%);
+    animation: winner-sweep 2.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes winner-bg {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes winner-glow {
+    0%,100% { box-shadow: 0 0 18px rgba(201,168,76,0.5), 0 0 6px rgba(201,168,76,0.3); }
+    50% { box-shadow: 0 0 40px rgba(201,168,76,0.95), 0 0 80px rgba(201,168,76,0.35), inset 0 0 20px rgba(201,168,76,0.1); }
+  }
+  @keyframes winner-sweep {
+    0% { left: -100%; }
+    100% { left: 160%; }
+  }
+  .winner-hero .lb-rank {
+    width: 52px !important; height: 52px !important;
+    font-size: 1.6rem !important;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light)) !important;
+    box-shadow: 0 0 14px rgba(201,168,76,0.7);
+  }
+  .winner-hero .winner-name-block { flex: 1; }
+  .winner-hero .winner-label {
+    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--gold-light); display: block; margin-bottom: 2px;
+  }
+  .winner-hero .lb-name {
+    font-size: 1.5rem !important; font-family: Georgia, serif;
+    color: var(--gold-light) !important; line-height: 1.1;
+  }
+  .winner-hero .winner-score-wrap { text-align: right; }
+  .winner-hero .lb-score { font-size: 2.8rem !important; line-height: 1; }
+  .winner-hero .lb-max { font-size: 0.75rem; color: var(--gold-dark); }
+
+  /* Confetti canvas */
+  #confetti-canvas {
+    position: fixed; inset: 0; z-index: 300;
+    pointer-events: none; width: 100%; height: 100%;
+  }
+
+  /* ===== DOUBLE TAP HINT ===== */
+  .tap-hint {
+    position: fixed; z-index: 400;
+    background: rgba(44,26,14,0.92);
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.95rem; font-weight: 700;
+    padding: 8px 18px; border-radius: 20px;
+    pointer-events: none;
+    transform: translate(-50%, -130%);
+    white-space: nowrap;
+    animation: hint-pop 0.15s ease-out;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+  @keyframes hint-pop {
+    from { opacity: 0; transform: translate(-50%, -110%) scale(0.85); }
+    to   { opacity: 1; transform: translate(-50%, -130%) scale(1); }
+  }
 
   /* ===== MISS BUTTON ===== */
   .btn-miss {
@@ -493,16 +647,18 @@
 
 <!-- ===== OVERALL LEADERBOARD ===== -->
 <div id="screen-overall" class="screen">
-  <div class="lb-header">
-    <div class="lb-header-bg"></div>
-    <div class="lb-header-content">
-      <div class="trophy">🏆</div>
-      <h2 data-i18n="overall_title">Totalt resultat</h2>
-      <p id="overall-sub" style="color:var(--text-sec);font-size:0.85rem;"></p>
+  <div class="overall-hero">
+    <div class="overall-hero-bg"></div>
+    <div class="overall-hero-content">
+      <div class="overall-crown">👑</div>
+      <div class="overall-mastare" id="overall-mastare">MÄSTARE!</div>
+      <div class="overall-winner-name" id="overall-winner-name"></div>
+      <div class="overall-winner-score" id="overall-winner-score"></div>
+      <div class="overall-winner-sub" id="overall-winner-sub"></div>
     </div>
   </div>
   <div class="lb-list" id="overall-list"></div>
-  <div class="lb-footer">
+  <div class="lb-footer" style="padding-top:12px;">
     <button class="btn btn-gold btn-full" onclick="goSetup()" data-i18n="btn_new_game">Nytt spel</button>
     <button class="btn btn-outline btn-full" onclick="goHome()" data-i18n="btn_home">Hem</button>
   </div>
@@ -555,6 +711,9 @@
 
 <!-- Score popup -->
 <div class="score-popup" id="score-popup"></div>
+
+<!-- Confetti canvas -->
+<canvas id="confetti-canvas"></canvas>
 
 <script>
 // ===== i18n =====
@@ -791,6 +950,7 @@ function beginCurrentPlayer() {
   const game = currentGame();
   const player = currentPlayer();
   state.currentShots = [];
+  state.hitMarks = [];
   state.g1_circle = 0;
   state.g3_series = 0;
   state.g3_shotInSeries = 0;
@@ -857,13 +1017,92 @@ function renderTarget() {
       `<div class="shot-dot${i < state.currentShots.length ? ' filled' : ''}"></div>`
     ).join('');
     container.innerHTML = renderGame3SVG();
+    // Re-draw accumulated hit marks on game 3 (same target persists)
+    const svg3 = container.querySelector('svg');
+    if (svg3) state.hitMarks.forEach(m => appendHitMark(svg3, m.x, m.y));
   }
 }
 
+// ===== SOUND =====
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+function playGunshot() {
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    // Noise burst (the "crack")
+    const bufLen = Math.floor(ctx.sampleRate * 0.18);
+    const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufLen; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufLen, 1.8);
+    }
+    const noise = ctx.createBufferSource();
+    noise.buffer = buf;
+    // Shape: sharp attack, fast decay
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(1.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+    // Low-pass to give it body
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(1800, now);
+    lp.frequency.exponentialRampToValueAtTime(300, now + 0.12);
+    // Slight "thud" — low sine blip
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(140, now);
+    osc.frequency.exponentialRampToValueAtTime(40, now + 0.08);
+    const oscGain = ctx.createGain();
+    oscGain.gain.setValueAtTime(0.6, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+    noise.connect(lp); lp.connect(gain); gain.connect(ctx.destination);
+    osc.connect(oscGain); oscGain.connect(ctx.destination);
+    noise.start(now); noise.stop(now + 0.2);
+    osc.start(now); osc.stop(now + 0.12);
+  } catch(e) {}
+}
+
+// ===== HIT MARK =====
+function appendHitMark(svg, x, y) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const g = document.createElementNS(ns, 'g');
+  g.classList.add('hit-mark');
+  // Outer ring
+  const ring = document.createElementNS(ns, 'circle');
+  ring.setAttribute('cx', x); ring.setAttribute('cy', y);
+  ring.setAttribute('r', '9'); ring.setAttribute('fill', 'none');
+  ring.setAttribute('stroke', '#ff2222'); ring.setAttribute('stroke-width', '2.5');
+  // Inner dot
+  const dot = document.createElementNS(ns, 'circle');
+  dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+  dot.setAttribute('r', '4'); dot.setAttribute('fill', '#ff2222');
+  dot.setAttribute('opacity', '0.9');
+  g.appendChild(ring); g.appendChild(dot);
+  svg.appendChild(g);
+}
+
+function addHitMark(evt, storeForRedraw) {
+  const svg = evt && evt.target ? evt.target.closest('svg') : null;
+  if (!svg) return;
+  const rect = svg.getBoundingClientRect();
+  const vb = svg.viewBox.baseVal;
+  const x = ((evt.clientX - rect.left) / rect.width) * vb.width;
+  const y = ((evt.clientY - rect.top) / rect.height) * vb.height;
+  appendHitMark(svg, x, y);
+  if (storeForRedraw) state.hitMarks.push({ x, y });
+}
+
 // ===== SHOT REGISTRATION =====
-function registerShot(score) {
+function registerShot(score, evt) {
+  if (score > 0) playGunshot();
   const g = currentGame();
   showScorePopup(score);
+  // Add red hit mark (game 3 stores marks so they survive re-render)
+  if (score > 0 && evt) addHitMark(evt, g === 3);
 
   if (g === 1) {
     state.currentShots.push(score);
@@ -947,22 +1186,39 @@ function showLeaderboard() {
     .map(([name, shots]) => ({ name, total: shots.reduce((a,b)=>a+b,0) }))
     .sort((a,b) => b.total - a.total);
 
-  const list = document.getElementById('lb-list');
-  list.innerHTML = sorted.map((p, i) => `
-    <div class="lb-row rank-${i+1}">
-      <div class="lb-rank">${i+1}</div>
-      <div class="lb-name">${p.name}</div>
-      <div>
-        <div class="lb-score">${p.total}</div>
-        <div class="lb-max">/ ${maxMap[g]}</div>
-      </div>
-    </div>
-  `).join('');
-
   const isLastGame = state.currentGameIdx >= state.games.length - 1;
+
+  const list = document.getElementById('lb-list');
+  list.innerHTML = sorted.map((p, i) => {
+    if (i === 0 && isLastGame) {
+      return `
+        <div class="lb-row rank-1 winner-hero">
+          <div class="lb-rank">🏆</div>
+          <div class="winner-name-block">
+            <span class="winner-label">⭐ Vinnare ⭐</span>
+            <div class="lb-name">${p.name}</div>
+          </div>
+          <div class="winner-score-wrap">
+            <div class="lb-score">${p.total}</div>
+            <div class="lb-max">/ ${maxMap[g]}</div>
+          </div>
+        </div>`;
+    }
+    return `
+      <div class="lb-row rank-${i+1}">
+        <div class="lb-rank">${i+1}</div>
+        <div class="lb-name">${p.name}</div>
+        <div>
+          <div class="lb-score">${p.total}</div>
+          <div class="lb-max">/ ${maxMap[g]}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  if (isLastGame && sorted.length) setTimeout(fireConfetti, 200);
   const nextBtn = document.getElementById('btn-next-game');
   nextBtn.textContent = isLastGame ? t('btn_new_game') : t('btn_next_game');
-  document.getElementById('btn-who-won').style.display = isLastGame ? '' : 'none';
+  document.getElementById('btn-who-won').style.display = (isLastGame && currentGame() === 3) ? '' : 'none';
   document.getElementById('btn-who-won').textContent = t('btn_who_won');
 
   showScreen('screen-leaderboard');
@@ -989,12 +1245,6 @@ function goToOverall() {
 }
 
 function showOverall() {
-  const gamesPlayed = state.games.map(g => {
-    const labels = { 1: t('game1_label'), 2: t('game2_label'), 3: t('game3_label') };
-    return labels[g];
-  });
-  document.getElementById('overall-sub').textContent = gamesPlayed.join(' + ');
-
   const totals = {};
   state.players.forEach(p => { totals[p.name] = 0; });
   state.games.forEach(g => {
@@ -1008,16 +1258,131 @@ function showOverall() {
     .map(([name, total]) => ({ name, total }))
     .sort((a,b) => b.total - a.total);
 
+  const winner = sorted[0];
+
+  // Per-game breakdown for winner sub-line
+  const breakdown = state.games.map(g => {
+    const shots = state.scores[g] && state.scores[g][winner.name];
+    const pts = shots ? shots.reduce((a,b)=>a+b,0) : 0;
+    return `S${g}: ${pts}p`;
+  }).join('  ·  ');
+
+  document.getElementById('overall-mastare').textContent = currentLang === 'sv' ? 'MÄSTARE!' : 'CHAMPION!';
+  document.getElementById('overall-winner-name').textContent = winner.name;
+  document.getElementById('overall-winner-score').textContent = winner.total;
+  document.getElementById('overall-winner-sub').innerHTML =
+    `<span class="overall-points-label">${currentLang === 'sv' ? 'poäng totalt' : 'total points'}</span>
+     <div style="margin-top:6px;color:var(--text-sec);font-size:0.8rem;">${breakdown}</div>`;
+
+  // Floating stars
+  const hero = document.querySelector('.overall-hero');
+  hero.querySelectorAll('.overall-stars').forEach(el => el.remove());
+  const starsEl = document.createElement('div');
+  starsEl.className = 'overall-stars';
+  const emojis = ['⭐','✨','🌟','💫','⭐','✨'];
+  for (let i = 0; i < 14; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.textContent = emojis[i % emojis.length];
+    s.style.cssText = `left:${5 + Math.random()*90}%;bottom:${Math.random()*60}%;
+      animation-duration:${2.5 + Math.random()*2}s;
+      animation-delay:${Math.random()*3}s;
+      font-size:${0.9 + Math.random()*1.2}rem;`;
+    starsEl.appendChild(s);
+  }
+  hero.appendChild(starsEl);
+
+  // Runners-up list
   const list = document.getElementById('overall-list');
-  list.innerHTML = sorted.map((p, i) => `
-    <div class="lb-row rank-${i+1}">
-      <div class="lb-rank">${i+1}</div>
+  list.innerHTML = sorted.slice(1).map((p, i) => `
+    <div class="lb-row rank-${i+2}">
+      <div class="lb-rank">${i+2}</div>
       <div class="lb-name">${p.name}</div>
       <div class="lb-score">${p.total}</div>
     </div>
   `).join('');
 
   showScreen('screen-overall');
+  setTimeout(() => { fireHeavyConfetti(); playFanfare(); }, 250);
+}
+
+function playFanfare() {
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+    // Victory arpeggio: C4 E4 G4 C5 E5
+    [[261.63,0],[329.63,0.12],[392.00,0.24],[523.25,0.36],[659.25,0.48]].forEach(([freq, delay]) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, now + delay);
+      gain.gain.linearRampToValueAtTime(0.35, now + delay + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.9);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(now + delay); osc.stop(now + delay + 1);
+    });
+    // Final chord sustain
+    [523.25, 659.25, 783.99].forEach(freq => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, now + 0.7);
+      gain.gain.linearRampToValueAtTime(0.2, now + 0.8);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 2.2);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(now + 0.7); osc.stop(now + 2.3);
+    });
+  } catch(e) {}
+}
+
+function fireHeavyConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#C9A84C','#FFD700','#E8C96A','#fff','#ff4444','#F5E6C8','#ff9900','#ffffff'];
+  const pieces = Array.from({length: 220}, () => ({
+    x: Math.random() * canvas.width,
+    y: -20 - Math.random() * 300,
+    r: 4 + Math.random() * 8,
+    d: 1.5 + Math.random() * 3.5,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    angle: 0,
+    tiltSpeed: 0.06 + Math.random() * 0.12,
+    wobble: Math.random() * Math.PI * 2,
+    shape: ['rect','circle','rect'][Math.floor(Math.random()*3)],
+  }));
+
+  let frame = 0;
+  const maxFrames = 240;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, 1 - (frame / maxFrames) * 0.7);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      if (p.shape === 'rect') {
+        ctx.fillRect(-p.r / 2, -p.r * 0.3, p.r, p.r * 0.6);
+      } else {
+        ctx.beginPath(); ctx.arc(0, 0, p.r * 0.5, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+      p.y += p.d + frame * 0.018;
+      p.wobble += 0.05;
+      p.x += Math.sin(p.wobble) * 2;
+      p.angle += p.tiltSpeed * 4;
+    });
+    frame++;
+    if (frame < maxFrames) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
 }
 
 // ===== HISTORY =====
@@ -1141,18 +1506,39 @@ function renderGame1SVG(activeCircle) {
     const isDone = idx < activeCircle;
     const alpha = isDone ? '0.4' : '1';
 
-    // rings 10 down to 1 (outer)
+    // Rings outer→inner. ring=10 outermost (score 1), ring=1 center (score 10).
+    // Color bands: outer (score 1-5) = black, middle (score 6-7) = light grey, inner (score 8-10) = black with white dot
     for (let ring = 10; ring >= 1; ring--) {
       const ringR = (r * ring) / 10;
-      const fill = ring <= 3 ? '#1a1a1a' : ring <= 7 ? '#2a2a2a' : '#1a1a1a';
-      svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="${fill}" opacity="${alpha}" stroke="#555" stroke-width="0.5"/>`;
+      const score = 11 - ring;
+      const fill = (score === 6 || score === 7) ? '#d0d0d0' : '#1a1a1a';
+      svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="${fill}" opacity="${alpha}" stroke="#888" stroke-width="0.6"/>`;
     }
-    // inner bullseye
-    svg += `<circle cx="${cx}" cy="${cy}" r="${r*0.15}" fill="#fff" opacity="${alpha}"/>`;
+    // White bullseye centre dot (score 10)
+    svg += `<circle cx="${cx}" cy="${cy}" r="${r*0.13}" fill="#fff" opacity="${alpha}"/>`;
+
+    // Score numbers on every ring (placed at 3-o'clock of each band's midpoint)
+    for (let ring = 10; ring >= 1; ring--) {
+      const score = 11 - ring;
+      const outerR = (r * ring) / 10;
+      const innerR = ring > 1 ? (r * (ring - 1)) / 10 : 0;
+      const midR = (outerR + innerR) / 2;
+      if (midR < 4) continue; // too small to label
+      const score67 = (score === 6 || score === 7);
+      const textFill = score67 ? '#111' : '#fff';
+      const fontSize = midR > 10 ? 7 : 6;
+      // Place at 3-o'clock and 9-o'clock for outer rings, just 3-o'clock for inner
+      svg += `<text x="${cx + midR - 1}" y="${cy + fontSize*0.35}" text-anchor="middle"
+        font-size="${fontSize}" fill="${textFill}" font-weight="bold" opacity="${alpha}">${score}</text>`;
+      if (midR > 22) {
+        svg += `<text x="${cx - midR + 1}" y="${cy + fontSize*0.35}" text-anchor="middle"
+          font-size="${fontSize}" fill="${textFill}" font-weight="bold" opacity="${alpha}">${score}</text>`;
+      }
+    }
 
     // Active circle highlight
     if (isActive) {
-      svg += `<circle cx="${cx}" cy="${cy}" r="${r+8}" fill="none" stroke="#C9A84C" stroke-width="3" stroke-dasharray="8,4"/>`;
+      svg += `<circle cx="${cx}" cy="${cy}" r="${r+8}" fill="none" stroke="#8B1010" stroke-width="3" stroke-dasharray="8,4"/>`;
     }
     if (isDone) {
       svg += `<text x="${cx}" y="${cy+6}" text-anchor="middle" font-size="18" fill="#C9A84C" opacity="0.7">✓</text>`;
@@ -1164,7 +1550,7 @@ function renderGame1SVG(activeCircle) {
         const ringR = (r * ring) / 10;
         const score = 11 - ring; // center (ring=1) → score 10, outer (ring=10) → score 1
         svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="transparent"
-          onclick="registerShot(${score})" class="ring-zone"
+          onclick="doubleTapShot(${score}, event)" class="ring-zone"
           style="cursor:pointer;"/>`;
       }
     }
@@ -1211,7 +1597,7 @@ function renderGame2SVG() {
     const ringR = (r * ring) / 5;
     const score = 6 - ring;
     svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="transparent"
-      onclick="registerShot(${score})" class="ring-zone"/>`;
+      onclick="doubleTapShot(${score}, event)" class="ring-zone"/>`;
   }
 
   svg += `</svg>`;
@@ -1259,11 +1645,103 @@ function renderGame3SVG() {
     const ringR = (r * ring) / 10;
     const score = 11 - ring; // center tap → score 10, outer tap → score 1
     svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="transparent"
-      onclick="registerShot(${score})" class="ring-zone"/>`;
+      onclick="doubleTapShot(${score}, event)" class="ring-zone"/>`;
   }
 
   svg += `</svg>`;
   return svg;
+}
+
+// ===== DOUBLE TAP TO SHOOT =====
+let _lastTapScore = null;
+let _lastTapTime = 0;
+let _hintEl = null;
+let _hintTimer = null;
+
+function doubleTapShot(score, evt) {
+  const now = Date.now();
+  const DOUBLE_TAP_MS = 450;
+
+  if (now - _lastTapTime < DOUBLE_TAP_MS && _lastTapScore === score) {
+    // Second tap — fire shot
+    clearHint();
+    _lastTapTime = 0;
+    _lastTapScore = null;
+    registerShot(score, evt);
+  } else {
+    // First tap — show hint
+    _lastTapTime = now;
+    _lastTapScore = score;
+    showTapHint(evt, score);
+    clearTimeout(_hintTimer);
+    _hintTimer = setTimeout(clearHint, 1400);
+  }
+}
+
+function showTapHint(evt, score) {
+  clearHint();
+  const label = currentLang === 'sv' ? `${score}p — tryck igen!` : `${score}pts — tap again!`;
+  _hintEl = document.createElement('div');
+  _hintEl.className = 'tap-hint';
+  _hintEl.textContent = label;
+  _hintEl.style.left = evt.clientX + 'px';
+  _hintEl.style.top  = evt.clientY + 'px';
+  document.body.appendChild(_hintEl);
+}
+
+function clearHint() {
+  if (_hintEl) { _hintEl.remove(); _hintEl = null; }
+}
+
+// ===== CONFETTI =====
+function fireConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#C9A84C','#E8C96A','#fff','#8B1010','#F5E6C8','#FFD700','#FF4444'];
+  const pieces = Array.from({length: 120}, () => ({
+    x: Math.random() * canvas.width,
+    y: -10 - Math.random() * 200,
+    r: 5 + Math.random() * 6,
+    d: 2 + Math.random() * 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    tilt: Math.random() * 10 - 5,
+    tiltSpeed: 0.08 + Math.random() * 0.1,
+    angle: 0,
+    shape: Math.random() > 0.5 ? 'rect' : 'circle',
+  }));
+
+  let frame = 0;
+  const maxFrames = 160;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, 1 - frame / maxFrames);
+      if (p.shape === 'rect') {
+        ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.5);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.r / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+      p.y += p.d + frame * 0.02;
+      p.x += Math.sin(p.angle * 0.02) * 1.5;
+      p.angle += p.tiltSpeed * 3;
+      p.tilt += p.tiltSpeed;
+    });
+    frame++;
+    if (frame < maxFrames) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
 }
 
 // ===== INIT =====
