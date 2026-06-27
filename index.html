@@ -1550,7 +1550,7 @@ function renderGame1SVG(activeCircle) {
         const ringR = (r * ring) / 10;
         const score = 11 - ring; // center (ring=1) → score 10, outer (ring=10) → score 1
         svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="transparent"
-          onclick="doubleTapShot(${score}, event)" class="ring-zone"
+          onclick="registerShot(${score}, event)" class="ring-zone"
           style="cursor:pointer;"/>`;
       }
     }
@@ -1597,7 +1597,7 @@ function renderGame2SVG() {
     const ringR = (r * ring) / 5;
     const score = 6 - ring;
     svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="transparent"
-      onclick="doubleTapShot(${score}, event)" class="ring-zone"/>`;
+      onclick="registerShot(${score}, event)" class="ring-zone"/>`;
   }
 
   svg += `</svg>`;
@@ -1645,7 +1645,7 @@ function renderGame3SVG() {
     const ringR = (r * ring) / 10;
     const score = 11 - ring; // center tap → score 10, outer tap → score 1
     svg += `<circle cx="${cx}" cy="${cy}" r="${ringR}" fill="transparent"
-      onclick="doubleTapShot(${score}, event)" class="ring-zone"/>`;
+      onclick="registerShot(${score}, event)" class="ring-zone"/>`;
   }
 
   svg += `</svg>`;
